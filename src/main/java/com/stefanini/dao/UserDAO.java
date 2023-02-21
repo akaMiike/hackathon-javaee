@@ -22,7 +22,7 @@ public class UserDAO extends GenericDAO<User, Integer>{
     }
 
     public List<String> findAllUsersEmailProviders(){
-        return em.createQuery("SELECT SUBSTRING(u.email, LOCATE('@', u.email) + 1) FROM User u", String.class)
+        return em.createQuery("SELECT DISTINCT SUBSTRING(u.email, LOCATE('@', u.email) + 1) FROM User u", String.class)
                 .getResultList();
     }
 
