@@ -17,8 +17,6 @@ public class UserService {
 
     @Inject
     UserDAO userDAO;
-    @Inject
-    PasswordUtils passwordUtils;
 
     public List<User> getAll(){
         return userDAO.findAll();
@@ -37,16 +35,16 @@ public class UserService {
     public void save(User newUser){
         if(userDAO.existsUserByLogin(newUser.getLogin()))
             throw new UserLoginAlreadyExistsException();
-        else if(!passwordUtils.isValidPassword(newUser.getPassword())){
+        else if(!PasswordUtils.isValidPassword(newUser.getPassword())){
             throw new InvalidPasswordException();
         }
 
-        newUser.setPassword(passwordUtils.encodeBase64(newUser.getPassword()));
+        newUser.setPassword(PasswordUtils.encodeBase64(newUser.getPassword()));
         userDAO.save(newUser);
     }
 
     public User update(Integer id, User updatedUser){
-        if(!passwordUtils.isValidPassword(updatedUser.getPassword())){
+        if(!PasswordUtils.isValidPassword(updatedUser.getPassword())){
             throw new InvalidPasswordException();
         }
 
@@ -54,7 +52,7 @@ public class UserService {
 
         updatedUser.setId(id);
         updatedUser.setCreatedAt(oldUser.getCreatedAt());
-        updatedUser.setPassword(passwordUtils.encodeBase64(updatedUser.getPassword()));
+        updatedUser.setPassword(PasswordUtils.encodeBase64(updatedUser.getPassword()));
 
         return userDAO.update(updatedUser);
     }
@@ -66,6 +64,12 @@ public class UserService {
 
     public User findById(Integer id){
         return userDAO.findUserById(id).orElseThrow(
+                () -> new UserNotFoundException()
+        );
+    }
+
+    public User findByLogin(String login){
+        return userDAO.findUserByLogin(login).orElseThrow(
                 () -> new UserNotFoundException()
         );
     }

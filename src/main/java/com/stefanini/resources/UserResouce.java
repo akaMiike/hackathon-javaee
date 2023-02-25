@@ -1,8 +1,11 @@
 package com.stefanini.resources;
 
 import com.stefanini.dto.UserCreationDTO;
+import com.stefanini.dto.UserLoginDTO;
 import com.stefanini.dto.UserReturnDTO;
+import com.stefanini.exceptions.user.AuthenticationException;
 import com.stefanini.model.User;
+import com.stefanini.services.AuthService;
 import com.stefanini.services.UserService;
 
 import javax.inject.Inject;
@@ -20,6 +23,8 @@ public class UserResouce {
 
     @Inject
     UserService userService;
+    @Inject
+    AuthService authService;
 
     @GET
     public Response getAllUsers(@QueryParam("nameInitial")
@@ -73,6 +78,16 @@ public class UserResouce {
     @Path("/{id}")
     public Response deleteUser(@PathParam("id") Integer id){
         userService.delete(id);
-        return Response.ok().build();
+        return Response.noContent().build();
+    }
+
+    @POST
+    @Path("/login")
+    public Response authenticateUser(@Valid UserLoginDTO userLogin){
+        if(authService.authenticate(userLogin.getLogin(), userLogin.getPassword()))
+            return Response.noContent().build();
+        else
+            throw new AuthenticationException();
+
     }
 }

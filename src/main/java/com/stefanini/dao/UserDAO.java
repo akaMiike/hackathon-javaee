@@ -45,4 +45,10 @@ public class UserDAO extends GenericDAO<User, Integer>{
                 .setParameter("month", month)
                 .getResultList();
     }
+
+    public Optional<User> findUserByLogin(String login){
+        return createQuery("SELECT u FROM User u where u.login = :login")
+                .setParameter("login", login)
+                .getResultStream().findFirst();
+    }
 }
