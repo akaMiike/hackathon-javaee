@@ -10,7 +10,7 @@ public class AuthenticationException extends WebApplicationException {
         super(Response.status(Response.Status.UNAUTHORIZED)
                 .entity(
                         new ErrorResponse(
-                                "Senha incorreta.",
+                                "Incorrect Password",
                                 Response.Status.UNAUTHORIZED.getStatusCode()
                         )
                 )

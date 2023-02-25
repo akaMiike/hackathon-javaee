@@ -10,21 +10,21 @@ import java.time.LocalDate;
 
 public class UserCreationDTO {
 
-    @Size(max = 50, message= "Nome deve ter no máximo 50 caracteres.")
-    @NotBlank(message = "Nome não pode ser vazio.")
+    @Size(max = 50, message= "Name must have 50 characters maximum.")
+    @NotBlank(message = "Name can't be empty.")
     private String name;
 
-    @Email(message = "Email com formato inválido.")
-    @Size(min = 10, message = "Email deve ter no mínimo 10 caracteres.")
-    @NotBlank(message = "Email não pode ser vazio.")
+    @Email(message = "Invalid email format.")
+    @Size(min = 10, message = "Email must have at least 10 characters.")
+    @NotBlank(message = "Email can't be empty.")
     private String email;
 
-    @Size(min = 5, max = 20, message = "Login deve possuir entre 5 a 20 caracteres.")
-    @NotBlank(message = "Login não pode ser vazio.")
+    @Size(min = 5, max = 20, message = "Login must have between 5 and 20 characters.")
+    @NotBlank(message = "Login can't be empty.")
     private String login;
 
-    @NotBlank(message = "Senha não pode ser vazia.")
-    @Size(min = 4, max = 10, message = "Senha deve possuir entre 4 a 10 caracteres.")
+    @NotBlank(message = "Password can't be empty.")
+    @Size(min = 4, max = 10, message = "Password must have between 4 and 10 characters.")
     private String password;
 
     private LocalDate birthDate;

@@ -14,7 +14,7 @@ public class CustomConstraintValidationException implements ExceptionMapper<Cons
     public Response toResponse(ConstraintViolationException e) {
         return Response.status(Response.Status.BAD_REQUEST.getStatusCode())
                 .entity(new ErrorResponse(
-                        "BAD REQUEST 400",
+                        "BAD REQUEST",
                         Response.Status.BAD_REQUEST.getStatusCode(),
                         e.getConstraintViolations().stream().map(c -> c.getMessage()).collect(Collectors.toList())
                 ))

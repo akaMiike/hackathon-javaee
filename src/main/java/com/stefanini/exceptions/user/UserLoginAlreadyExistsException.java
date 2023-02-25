@@ -13,7 +13,7 @@ public class UserLoginAlreadyExistsException extends WebApplicationException {
         super(Response.status(400)
                 .entity(
                         new ErrorResponse(
-                        "Login já está em uso por outro usuário.",
+                        "Login is already in use by another user.",
                         Response.Status.BAD_REQUEST.getStatusCode())
                 )
                 .build());

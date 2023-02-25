@@ -13,7 +13,7 @@ public class UserNotFoundException extends WebApplicationException {
         super(Response.status(404)
                 .entity(
                         new ErrorResponse(
-                        "Usuário não encontrado",
+                        "User not found.",
                         Response.Status.NOT_FOUND.getStatusCode())
                 )
                 .build());

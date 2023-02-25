@@ -11,8 +11,8 @@ public class InvalidPasswordException extends WebApplicationException {
         super(Response.status(400)
                 .entity(
                         new ErrorResponse(
-                        "A senha deve possuir pelo menos: " +
-                                " 1 caractere especial, 1 caractere maíúsculo, 1 caractere minúsculo e 1 digito",
+                        "Password must have at least: " +
+                                " 1 special character, 1 upper character, 1 lower character and 1 number",
                         Response.Status.BAD_REQUEST.getStatusCode())
                 )
                 .build());
