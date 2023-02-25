@@ -5,6 +5,7 @@ import com.stefanini.model.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -24,7 +25,10 @@ public class UserCreationDTO {
     private String login;
 
     @NotBlank(message = "Password can't be empty.")
-    @Size(min = 4, max = 10, message = "Password must have between 4 and 10 characters.")
+    @Pattern(
+            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{4,10}$",
+            message = "Password must have between 4 and 10 characters, with least 1 special character, 1 upper character, 1 lower character and 1 number"
+    )
     private String password;
 
     private LocalDate birthDate;

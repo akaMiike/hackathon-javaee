@@ -1,7 +1,6 @@
 package com.stefanini.services;
 
 import com.stefanini.dao.UserDAO;
-import com.stefanini.exceptions.user.InvalidPasswordException;
 import com.stefanini.exceptions.user.UserLoginAlreadyExistsException;
 import com.stefanini.exceptions.user.UserNotFoundException;
 import com.stefanini.model.User;
@@ -35,19 +34,12 @@ public class UserService {
     public void save(User newUser){
         if(userDAO.existsUserByLogin(newUser.getLogin()))
             throw new UserLoginAlreadyExistsException();
-        else if(!PasswordUtils.isValidPassword(newUser.getPassword())){
-            throw new InvalidPasswordException();
-        }
 
         newUser.setPassword(PasswordUtils.encodeBase64(newUser.getPassword()));
         userDAO.save(newUser);
     }
 
     public User update(Integer id, User updatedUser){
-        if(!PasswordUtils.isValidPassword(updatedUser.getPassword())){
-            throw new InvalidPasswordException();
-        }
-
         User oldUser = findById(id);
 
         updatedUser.setId(id);
